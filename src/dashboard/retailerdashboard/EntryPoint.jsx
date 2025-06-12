@@ -29,7 +29,7 @@ const REntryPoint = () => {
             Manage Requests
           </Link>
           <Link
-            to={`/request/retailer/${retailerId}`}
+            to={`/dashboard/retailer/${retailerId}/make-request`}
             className="hover:underline"
           >
             Make Requests

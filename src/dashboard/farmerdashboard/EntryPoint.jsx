@@ -28,7 +28,10 @@ const EntryPoint = () => {
           >
             Manage Requests
           </Link>
-          <Link to={`/request/farmer/${farmerId}`} className="hover:underline">
+          <Link
+            to={`/dashboard/farmer/${farmerId}/make-request`}
+            className="hover:underline"
+          >
             Make Requests
           </Link>
         </nav>

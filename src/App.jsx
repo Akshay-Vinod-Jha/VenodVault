@@ -37,6 +37,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="control" element={<ControlPanel />} />
           <Route path="requests" element={<ManageRequest />} />
+          <Route path="make-request" element={<CommonRequestPage />} />
         </Route>
         <Route
           path="/dashboard/retailer/:retailerId/*"
@@ -45,6 +46,7 @@ function App() {
           <Route index element={<RDashboard />} />
           <Route path="control" element={<RControlPanel />} />
           <Route path="requests" element={<RManageRequest />} />
+          <Route path="make-request" element={<CommonRequestPage />} />
         </Route>
         <Route
           path="/dashboard/logistic/:logisticId/*"
@@ -53,6 +55,7 @@ function App() {
           <Route index element={<LDashboard />} />
           <Route path="control" element={<LControlPanel />} />
           <Route path="requests" element={<LManageRequest />} />
+          <Route path="make-request" element={<CommonRequestPage />} />
         </Route>
         <Route
           path="/dashboard/warehouse/:warehouseId/*"
@@ -61,11 +64,8 @@ function App() {
           <Route index element={<WDashboard />} />
           <Route path="control" element={<WControlPanel />} />
           <Route path="requests" element={<WManageRequest />} />
+          <Route path="make-request" element={<CommonRequestPage />} />
         </Route>
-        <Route
-          path="/request/:role/:roleuserid"
-          element={<CommonRequestPage />}
-        />
       </Routes>
     </Router>
   );
