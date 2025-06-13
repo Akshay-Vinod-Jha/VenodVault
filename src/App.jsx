@@ -23,11 +23,13 @@ import WDashboard from "./dashboard/warehousedashboard/Dashboard";
 import WControlPanel from "./dashboard/warehousedashboard/ControlPanel";
 import WManageRequest from "./dashboard/warehousedashboard/ManageRequest";
 import CommonRequestPage from "./pages/CommonRequestPage";
+import VendorsVaultLanding from "./pages/Index";
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<CommonLogin />} />
+        <Route path="/" element={<VendorsVaultLanding />} />
+        <Route path="/login" element={<CommonLogin />} />
         <Route path="/signup" element={<EntrySignUp />} />
         <Route path="/signup/farmer" element={<FarmerSignupForm />} />
         <Route path="/signup/warehouse" element={<WarehouseSignupForm />} />

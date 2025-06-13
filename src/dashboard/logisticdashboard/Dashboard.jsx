@@ -34,7 +34,6 @@ const LDashboard = () => {
   const [pendingCount, setPendingCount] = useState(0);
 
   useEffect(() => {
-    // Fetch logistic owner info
     const fetchInfo = async () => {
       const docRef = doc(db, `logistic/${logisticId}`);
       const snap = await getDoc(docRef);
@@ -63,15 +62,20 @@ const LDashboard = () => {
     };
   }, [logisticId]);
 
-  const chartData = fleet.map((vehicle) => {
-    const relatedDeliveries = requests.filter(
-      (req) => req.vehicleId === vehicle.id
-    );
-    return {
-      name: vehicle.vehicleNumber || `Vehicle ${vehicle.id.slice(0, 4)}`,
-      deliveries: relatedDeliveries.length,
-    };
+  const typeCapacityMap = {};
+  fleet.forEach((vehicle) => {
+    const type = vehicle.type || "Unknown";
+    const capacity = Number(vehicle.capacity) || 0;
+    if (!typeCapacityMap[type]) {
+      typeCapacityMap[type] = 0;
+    }
+    typeCapacityMap[type] += capacity;
   });
+
+  const chartData = Object.entries(typeCapacityMap).map(([type, total]) => ({
+    type,
+    totalCapacity: total,
+  }));
 
   return (
     <div className="space-y-6">
@@ -135,7 +139,7 @@ const LDashboard = () => {
       {/* Chart */}
       <div>
         <h3 className="text-xl font-semibold mb-4 text-white">
-          Deliveries per Vehicle
+          Total Capacity per Vehicle Type
         </h3>
         {chartData.length ? (
           <ResponsiveContainer width="100%" height={400}>
@@ -144,16 +148,16 @@ const LDashboard = () => {
               margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="type" />
               <YAxis
                 label={{
-                  value: "Deliveries",
+                  value: "Total Capacity",
                   angle: -90,
                   position: "insideLeft",
                 }}
               />
               <Tooltip />
-              <Bar dataKey="deliveries" name="Deliveries">
+              <Bar dataKey="totalCapacity" name="Total Capacity">
                 {chartData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
@@ -164,7 +168,7 @@ const LDashboard = () => {
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <p className="text-gray-400">No vehicle delivery data to display.</p>
+          <p className="text-gray-400">No vehicle capacity data to display.</p>
         )}
       </div>
     </div>
