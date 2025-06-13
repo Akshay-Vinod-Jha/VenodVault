@@ -80,6 +80,29 @@ const WControlPanel = () => {
     await deleteDoc(docRef);
   };
 
+  // New function to handle view location
+  const handleViewLocation = (location) => {
+    if (!location) {
+      alert("Location not available");
+      return;
+    }
+
+    // Check if location looks like coordinates (lat,lng format)
+    const coordPattern = /^-?\d+\.?\d*,-?\d+\.?\d*$/;
+
+    if (coordPattern.test(location)) {
+      // If coordinates, open in Google Maps
+      const [lat, lng] = location.split(",");
+      window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
+    } else {
+      // If place name, search on Google Maps
+      window.open(
+        `https://www.google.com/maps/search/${encodeURIComponent(location)}`,
+        "_blank"
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-6">
       <div className="max-w-6xl mx-auto">
@@ -125,7 +148,7 @@ const WControlPanel = () => {
             <input
               type="text"
               name="location"
-              placeholder="Location"
+              placeholder="Location (Address or lat,lng)"
               value={newStorage.location}
               onChange={handleChange}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400"
@@ -202,6 +225,12 @@ const WControlPanel = () => {
                   </p>
                 </div>
                 <div className="flex gap-4 mt-4 md:mt-0">
+                  <button
+                    onClick={() => handleViewLocation(storage.location)}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-semibold"
+                  >
+                    View Location
+                  </button>
                   <button
                     onClick={() => handleEdit(storage)}
                     className="text-teal-600 hover:text-teal-700 hover:underline transition-colors duration-200 font-semibold"
