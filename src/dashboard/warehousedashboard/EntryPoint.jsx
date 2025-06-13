@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { DollarSign } from "lucide-react";
 import {
   LayoutDashboard,
   Settings,
