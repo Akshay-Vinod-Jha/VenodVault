@@ -14,7 +14,7 @@ import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-
+import { ArrowLeft } from "lucide-react";
 const RetailerSignupForm = () => {
   const navigate = useNavigate();
 
@@ -75,6 +75,13 @@ const RetailerSignupForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-8 px-4 relative overflow-hidden">
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 z-50 cursor-pointer left-4 flex items-center text-emerald-700 hover:text-emerald-800 hover:bg-emerald-100 px-3 py-2 rounded-md transition-colors"
+      >
+        <ArrowLeft className="w-5 h-5 mr-2" />
+        <span className="hidden sm:inline">Back</span>
+      </button>
       {/* Decorative Background Elements */}
       <div className="absolute top-10 right-10 w-72 h-72 bg-emerald-200 opacity-20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-10 left-10 w-64 h-64 bg-teal-200 opacity-20 rounded-full blur-3xl"></div>
@@ -325,7 +332,7 @@ const RetailerSignupForm = () => {
               <p className="text-gray-600">
                 Already have an account?{" "}
                 <a
-                  href="#"
+                  href="/login"
                   className="text-emerald-600 hover:text-emerald-700 hover:underline transition-colors duration-200 font-semibold"
                 >
                   Sign in here

@@ -80,7 +80,10 @@ const EntrySignUp = () => {
           </div>
           <h1 className="text-xl font-bold text-gray-800">Vendor's Vault</h1>
         </div>
-        <button className="text-green-600 hover:text-green-700 font-medium">
+        <button
+          className="text-green-600 z-50 p-4 hover:bg-green-200 rounded-2xl cursor-pointer hover:text-green-700 font-medium"
+          onClick={() => navigate("/login")}
+        >
           Back to Login
         </button>
       </div>

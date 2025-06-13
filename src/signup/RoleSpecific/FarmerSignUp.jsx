@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-
+import { ArrowLeft } from "lucide-react";
 const FarmerSignupForm = () => {
   const navigate = useNavigate();
 
@@ -107,6 +107,13 @@ const FarmerSignupForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex justify-center items-center py-10 px-4">
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 z-50 cursor-pointer left-4 flex items-center text-emerald-700 hover:text-emerald-800 hover:bg-emerald-100 px-3 py-2 rounded-md transition-colors"
+      >
+        <ArrowLeft className="w-5 h-5 mr-2" />
+        <span className="hidden sm:inline">Back</span>
+      </button>
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-200 rounded-full opacity-20 blur-3xl"></div>

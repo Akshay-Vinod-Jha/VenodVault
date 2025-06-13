@@ -4,7 +4,7 @@ import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-
+import { ArrowLeft } from "lucide-react";
 const LogisticsSignupForm = () => {
   const navigate = useNavigate(); // Uncomment in your project
   const [formData, setFormData] = useState({
@@ -64,6 +64,13 @@ const LogisticsSignupForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex justify-center items-center py-10 px-4 relative overflow-hidden">
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 z-50 cursor-pointer left-4 flex items-center text-emerald-700 hover:text-emerald-800 hover:bg-emerald-100 px-3 py-2 rounded-md transition-colors"
+      >
+        <ArrowLeft className="w-5 h-5 mr-2" />
+        <span className="hidden sm:inline">Back</span>
+      </button>
       {/* Decorative Background Elements */}
       <div className="absolute top-20 right-20 w-96 h-96 bg-emerald-200 opacity-20 blur-3xl rounded-full transform translate-x-16 -translate-y-8"></div>
       <div className="absolute bottom-20 left-20 w-80 h-80 bg-teal-200 opacity-20 blur-3xl rounded-full transform -translate-x-12 translate-y-8"></div>
@@ -308,7 +315,7 @@ const LogisticsSignupForm = () => {
           <div className="text-center text-gray-600 text-sm">
             Already have an account?{" "}
             <a
-              href="#"
+              href="/login"
               className="text-emerald-600 hover:text-emerald-700 hover:underline transition-colors duration-200 font-semibold"
             >
               Sign in here
