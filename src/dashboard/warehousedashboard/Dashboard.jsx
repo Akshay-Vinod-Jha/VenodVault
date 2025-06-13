@@ -130,7 +130,7 @@ const WDashboard = () => {
           </p>
           <p className="text-gray-700">
             <span className="font-semibold text-gray-800">
-              Base Capacity (tons):
+              Base Capacity (kg):
             </span>{" "}
             {warehouseInfo.capacity || "0"}
           </p>

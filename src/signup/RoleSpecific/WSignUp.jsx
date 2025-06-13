@@ -76,7 +76,7 @@ const WarehouseSignupForm = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-8 px-4 relative overflow-hidden">
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/signup")}
         className="absolute top-4 z-50 cursor-pointer left-4 flex items-center text-emerald-700 hover:text-emerald-800 hover:bg-emerald-100 px-3 py-2 rounded-md transition-colors"
       >
         <ArrowLeft className="w-5 h-5 mr-2" />
@@ -245,7 +245,7 @@ const WarehouseSignupForm = () => {
 
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Storage Capacity (tons) *
+                    Storage Capacity (kg) *
                   </label>
                   <input
                     type="text"
