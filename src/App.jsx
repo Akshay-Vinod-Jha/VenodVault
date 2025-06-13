@@ -25,6 +25,7 @@ import WManageRequest from "./dashboard/warehousedashboard/ManageRequest";
 import CommonRequestPage from "./pages/CommonRequestPage";
 import VendorsVaultLanding from "./pages/Index";
 import BotpressChatbot from "./components/Chatbot";
+import CommonRemainingPayment from "./pages/CommonRemainingPayment";
 function App() {
   return (
     <Router>
@@ -44,6 +45,10 @@ function App() {
             <Route path="control" element={<ControlPanel />} />
             <Route path="requests" element={<ManageRequest />} />
             <Route path="make-request" element={<CommonRequestPage />} />
+            <Route
+              path="remainingpayments"
+              element={<CommonRemainingPayment />}
+            />
           </Route>
 
           {/* Retailer Dashboard Routes */}
@@ -55,6 +60,10 @@ function App() {
             <Route path="control" element={<RControlPanel />} />
             <Route path="requests" element={<RManageRequest />} />
             <Route path="make-request" element={<CommonRequestPage />} />
+            <Route
+              path="remainingpayments"
+              element={<CommonRemainingPayment />}
+            />
           </Route>
 
           {/* Logistics Dashboard Routes */}
@@ -66,6 +75,10 @@ function App() {
             <Route path="control" element={<LControlPanel />} />
             <Route path="requests" element={<LManageRequest />} />
             <Route path="make-request" element={<CommonRequestPage />} />
+            <Route
+              path="remainingpayments"
+              element={<CommonRemainingPayment />}
+            />
           </Route>
 
           {/* Warehouse Dashboard Routes */}
@@ -77,6 +90,10 @@ function App() {
             <Route path="control" element={<WControlPanel />} />
             <Route path="requests" element={<WManageRequest />} />
             <Route path="make-request" element={<CommonRequestPage />} />
+            <Route
+              path="remainingpayments"
+              element={<CommonRemainingPayment />}
+            />
           </Route>
         </Routes>
 

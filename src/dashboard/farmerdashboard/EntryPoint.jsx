@@ -9,6 +9,7 @@ import {
   Tractor,
   User,
   Menu,
+  DollarSign,
   ChevronRight,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +42,11 @@ const EntryPoint = () => {
       to: `/dashboard/farmer/${farmerId}/make-request`,
       label: "Make Requests",
       icon: Send,
+    },
+    {
+      to: `/dashboard/farmer/${farmerId}/remainingpayments`,
+      label: "Remaining Payments",
+      icon: DollarSign,
     },
   ];
 

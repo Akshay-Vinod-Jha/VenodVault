@@ -12,6 +12,7 @@ import {
   Menu,
   ChevronRight,
 } from "lucide-react";
+import { DollarSign } from "lucide-react";
 
 const LEntryPoint = () => {
   const { logisticId } = useParams();
@@ -42,6 +43,11 @@ const LEntryPoint = () => {
       to: `/dashboard/logistic/${logisticId}/make-request`,
       label: "Make Requests",
       icon: Send,
+    },
+    {
+      to: `/dashboard/logistic/${logisticId}/remainingpayments`,
+      label: "Remaining Payments",
+      icon: DollarSign,
     },
   ];
 

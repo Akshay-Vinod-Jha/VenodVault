@@ -90,7 +90,7 @@ const Dashboard = () => {
                 />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="quantity" name="Quantity (kg)">
+                <Bar dataKey="quantity" name="Crop">
                   {chartData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}

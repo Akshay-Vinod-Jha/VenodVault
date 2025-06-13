@@ -12,6 +12,7 @@ import {
   Menu,
   ChevronRight,
 } from "lucide-react";
+import { DollarSign } from "lucide-react";
 
 const REntryPoint = () => {
   const { retailerId } = useParams();
@@ -42,6 +43,11 @@ const REntryPoint = () => {
       to: `/dashboard/retailer/${retailerId}/make-request`,
       label: "Make Requests",
       icon: Send,
+    },
+    {
+      to: `/dashboard/retailer/${retailerId}/remainingpayments`,
+      label: "Remaining Payments",
+      icon: DollarSign,
     },
   ];
 

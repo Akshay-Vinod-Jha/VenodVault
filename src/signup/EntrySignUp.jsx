@@ -76,7 +76,7 @@ const EntrySignUp = () => {
       <div className="flex justify-between items-center p-6">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center">
-            <span className="text-white font-bold text-sm">🌱</span>
+            <img src="/logo.png" />
           </div>
           <h1 className="text-xl font-bold text-gray-800">Vendor's Vault</h1>
         </div>

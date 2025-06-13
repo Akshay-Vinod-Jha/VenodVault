@@ -43,6 +43,11 @@ const WEntryPoint = () => {
       label: "Make Requests",
       icon: Send,
     },
+    {
+      to: `/dashboard/warehouse/${warehouseId}/remainingpayments`,
+      label: "Remaining Payments",
+      icon: DollarSign,
+    },
   ];
 
   return (
