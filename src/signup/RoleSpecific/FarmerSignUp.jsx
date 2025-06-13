@@ -50,6 +50,7 @@ const FarmerSignupForm = () => {
         phone: formData.phone,
         address: formData.address,
         email: formData.email,
+        password: formData.password,
         farmName: formData.farmName,
         cropTypes: formData.cropTypes,
         yearsFarming: formData.yearsFarming,

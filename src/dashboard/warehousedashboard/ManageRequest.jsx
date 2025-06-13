@@ -248,85 +248,94 @@ const WManageRequest = () => {
       return (
         <div
           key={req.docId}
-          className={`p-5 rounded-lg shadow-md transition-colors ${
+          className={`p-6 rounded-xl shadow-lg transition-all duration-200 border-2 ${
             req.status === "approved"
-              ? "bg-green-800"
+              ? "bg-white/80 backdrop-blur-sm border-emerald-100"
               : req.status === "rejected"
-              ? "bg-red-800"
-              : "bg-gray-800"
+              ? "bg-white/80 backdrop-blur-sm border-red-100"
+              : "bg-white/80 backdrop-blur-sm border-teal-100"
           }`}
         >
-          <p className="text-sm text-pink-400 font-mono break-all">
+          <p className="text-sm text-emerald-600 font-semibold break-all">
             Document ID: {safeValue(req.docId)}
           </p>
-          <hr className="my-3 border-gray-600" />
+          <hr className="my-3 border-gray-200" />
 
-          <div className="space-y-1">
-            <h1 className="text-xl font-bold text-yellow-300">
+          <div className="space-y-2">
+            <h1 className="text-xl font-bold text-gray-800">
               Storage Request Info
             </h1>
-            <p>
-              <strong>Storage ID:</strong> {safeValue(req.id)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Storage ID:</strong>{" "}
+              {safeValue(req.id)}
             </p>
-            <p>
-              <strong>Location:</strong> {safeValue(req.location)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Location:</strong>{" "}
+              {safeValue(req.location)}
             </p>
-            <p>
-              <strong>Type:</strong> {safeValue(req.type)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Type:</strong>{" "}
+              {safeValue(req.type)}
             </p>
-            <p>
-              <strong>Price Per Day:</strong> {safeValue(req.pricePerDay)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Price Per Day:</strong>{" "}
+              {safeValue(req.pricePerDay)}
             </p>
-            <p>
-              <strong>Storage Name:</strong> {safeValue(req.storageName)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Storage Name:</strong>{" "}
+              {safeValue(req.storageName)}
             </p>
-            <p>
-              <strong>Requested Quantity:</strong>{" "}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Requested Quantity:</strong>{" "}
               {safeValue(req.requestedQuantity)}
             </p>
-            <p>
-              <strong>Requested By:</strong> {safeValue(req.requestedById)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Requested By:</strong>{" "}
+              {safeValue(req.requestedById)}
             </p>
-            <p>
-              <strong>Role:</strong> {safeValue(req.requestedByRole)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Role:</strong>{" "}
+              {safeValue(req.requestedByRole)}
             </p>
-            <p>
-              <strong>Status:</strong>
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Status:</strong>
               <span
-                className={`font-bold ${
+                className={`font-semibold ml-1 ${
                   req.status === "pending"
-                    ? "text-yellow-400"
+                    ? "text-yellow-600"
                     : req.status === "approved"
-                    ? "text-green-400"
-                    : "text-red-400"
+                    ? "text-emerald-600"
+                    : "text-red-600"
                 }`}
               >
                 {safeValue(req.status)}
               </span>
             </p>
-            <p>
-              <strong>Created At:</strong> {formatTimestamp(req.createdAt)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Created At:</strong>{" "}
+              {formatTimestamp(req.createdAt)}
             </p>
-            <p>
-              <strong>Timestamp:</strong> {formatTimestamp(req.timestamp)}
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Timestamp:</strong>{" "}
+              {formatTimestamp(req.timestamp)}
             </p>
             {req.processedAt && (
-              <p>
-                <strong>Processed At:</strong>{" "}
+              <p className="text-gray-700">
+                <strong className="text-gray-800">Processed At:</strong>{" "}
                 {formatTimestamp(req.processedAt)}
               </p>
             )}
           </div>
 
           {showActions && req.status === "pending" && (
-            <div className="flex gap-3 justify-end mt-4">
+            <div className="flex gap-3 justify-end mt-6">
               <button
                 onClick={() => handleAccept(req)}
                 disabled={processingRequest === req.docId}
-                className={`px-4 py-2 rounded-md text-white transition-colors ${
+                className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-200 transform ${
                   processingRequest === req.docId
-                    ? "bg-gray-600 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                    ? "bg-emerald-400 cursor-not-allowed scale-95"
+                    : "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:scale-105 hover:shadow-lg"
                 }`}
               >
                 {processingRequest === req.docId ? "Processing..." : "Accept"}
@@ -334,10 +343,10 @@ const WManageRequest = () => {
               <button
                 onClick={() => handleReject(req)}
                 disabled={processingRequest === req.docId}
-                className={`px-4 py-2 rounded-md text-white transition-colors ${
+                className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-200 transform ${
                   processingRequest === req.docId
-                    ? "bg-gray-600 cursor-not-allowed"
-                    : "bg-red-600 hover:bg-red-700"
+                    ? "bg-red-400 cursor-not-allowed scale-95"
+                    : "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 hover:scale-105 hover:shadow-lg"
                 }`}
               >
                 {processingRequest === req.docId ? "Processing..." : "Reject"}
@@ -381,14 +390,14 @@ const WManageRequest = () => {
 
   if (error) {
     return (
-      <div className="p-6 text-white min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-center max-w-md">
-          <div className="text-red-400 text-6xl mb-4">⚠️</div>
-          <h2 className="text-xl font-bold mb-2 text-red-400">Error</h2>
-          <p className="text-gray-300 mb-4">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-6">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-red-100 p-8 text-center max-w-md">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 className="text-xl font-bold mb-2 text-gray-800">Error</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+            className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
           >
             Retry
           </button>
@@ -399,49 +408,60 @@ const WManageRequest = () => {
 
   if (loading) {
     return (
-      <div className="p-6 text-white min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">Loading requests...</p>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-6">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-emerald-100 p-8 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-emerald-200 border-t-emerald-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading requests...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 text-white min-h-screen bg-gray-900">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6">Manage Warehouse Requests</h2>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-6">
+      {/* Decorative background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-200 opacity-20 blur-3xl rounded-full transform translate-x-48 -translate-y-48"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-200 opacity-20 blur-3xl rounded-full transform -translate-x-48 translate-y-48"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-green-200 opacity-10 blur-3xl rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+      </div>
 
-        <div className="flex space-x-1 mb-6 bg-gray-800 p-1 rounded-lg">
-          {["pending", "accepted", "declined"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-4 rounded-md font-medium capitalize transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                activeTab === tab
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-400 hover:text-white hover:bg-gray-700"
-              }`}
-            >
-              {tab} ({getTabCount(tab)})
-            </button>
-          ))}
-        </div>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-emerald-100 p-8">
+          <h2 className="text-3xl font-bold mb-6 text-gray-800">
+            Manage Warehouse Requests
+          </h2>
 
-        <div className="space-y-4">
-          {getTabData.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-gray-500 text-6xl mb-4">📋</div>
-              <p className="text-gray-400 text-lg">
-                No {activeTab} requests found.
-              </p>
-            </div>
-          ) : (
-            getTabData.map((req) =>
-              renderRequestCard(req, activeTab === "pending")
-            )
-          )}
+          <div className="flex space-x-1 mb-6 bg-gradient-to-r from-emerald-50 to-teal-50 p-1 rounded-xl border border-emerald-100">
+            {["pending", "accepted", "declined"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`flex-1 py-3 px-4 rounded-xl font-semibold capitalize transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-emerald-100 ${
+                  activeTab === tab
+                    ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg"
+                    : "text-gray-600 hover:text-gray-800 hover:bg-white/50"
+                }`}
+              >
+                {tab} ({getTabCount(tab)})
+              </button>
+            ))}
+          </div>
+
+          <div className="space-y-6">
+            {getTabData.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="text-gray-400 text-6xl mb-4">📋</div>
+                <p className="text-gray-600 text-lg">
+                  No {activeTab} requests found.
+                </p>
+              </div>
+            ) : (
+              getTabData.map((req) =>
+                renderRequestCard(req, activeTab === "pending")
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>

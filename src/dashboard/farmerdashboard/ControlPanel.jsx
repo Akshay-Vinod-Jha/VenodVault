@@ -71,17 +71,17 @@ const ControlPanel = () => {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Control Panel</h2>
+    <div className="p-6 min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Control Panel</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-gray-900 p-4 rounded-lg">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-white/80 backdrop-blur-sm p-6 rounded-xl border border-emerald-100 shadow-lg">
         <input
           type="text"
           name="name"
           placeholder="Crop Name"
           value={newCrop.name}
           onChange={handleChange}
-          className="p-2 rounded bg-gray-700 text-white"
+          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400"
         />
         <input
           type="number"
@@ -89,7 +89,7 @@ const ControlPanel = () => {
           placeholder="Quantity (kg)"
           value={newCrop.quantity}
           onChange={handleChange}
-          className="p-2 rounded bg-gray-700 text-white"
+          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400"
         />
         <input
           type="number"
@@ -97,7 +97,7 @@ const ControlPanel = () => {
           placeholder="Price (₹ per kg)"
           value={newCrop.price}
           onChange={handleChange}
-          className="p-2 rounded bg-gray-700 text-white"
+          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400"
         />
         <input
           type="text"
@@ -105,7 +105,7 @@ const ControlPanel = () => {
           placeholder="Quality (e.g. A+, B)"
           value={newCrop.quality}
           onChange={handleChange}
-          className="p-2 rounded bg-gray-700 text-white"
+          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400"
         />
         <input
           type="date"
@@ -113,27 +113,27 @@ const ControlPanel = () => {
           placeholder="Harvest Date"
           value={newCrop.harvestDate}
           onChange={handleChange}
-          className="p-2 rounded bg-gray-700 text-white"
+          className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400"
         />
 
         <button
           onClick={handleAddCrop}
-          className="bg-green-600 px-4 py-2 rounded hover:bg-green-700 text-white font-semibold col-span-full"
+          className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 px-6 py-4 rounded-xl text-white font-semibold col-span-full transition-all duration-200 hover:scale-105 hover:shadow-lg"
         >
           Add Crop
         </button>
       </div>
 
       {loading ? (
-        <p>Loading crops...</p>
+        <p className="text-gray-600">Loading crops...</p>
       ) : (
         <ul className="space-y-3">
           {crops.map((crop) => (
             <li
               key={crop.id}
-              className="bg-gray-800 p-4 rounded flex flex-col md:flex-row md:justify-between md:items-center"
+              className="bg-white/80 backdrop-blur-sm p-6 rounded-xl flex flex-col md:flex-row md:justify-between md:items-center border border-emerald-100 shadow-lg hover:shadow-xl transition-all duration-200"
             >
-              <div className="text-white">
+              <div className="text-gray-700">
                 <p>
                   <strong>Name:</strong> {crop.name}
                 </p>
@@ -152,7 +152,7 @@ const ControlPanel = () => {
               </div>
               <button
                 onClick={() => handleDeleteCrop(crop.id)}
-                className="text-red-400 hover:underline mt-3 md:mt-0"
+                className="text-red-500 hover:text-red-700 hover:underline mt-3 md:mt-0 font-semibold transition-colors duration-200"
               >
                 Delete
               </button>

@@ -20,13 +20,18 @@ const VendorsVaultLanding = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-20 right-20 w-96 h-96 bg-emerald-200 opacity-20 blur-3xl rounded-full"></div>
+      <div className="absolute bottom-20 left-20 w-80 h-80 bg-teal-200 opacity-20 blur-3xl rounded-full"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-200 opacity-10 blur-3xl rounded-full"></div>
+
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
+      <header className="bg-white/80 backdrop-blur-sm shadow-2xl border-b border-emerald-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center">
                 <svg
                   className="w-5 h-5 text-white"
                   fill="currentColor"
@@ -35,13 +40,13 @@ const VendorsVaultLanding = () => {
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
               </div>
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-xl font-bold text-gray-800">
                 Vendor's Vault
               </span>
             </div>
             <button
               onClick={handleSignUp}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+              className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:scale-105 hover:shadow-lg text-white px-4 py-2 rounded-xl font-semibold transition-all duration-200 transform"
             >
               Sign Up / Login
             </button>
@@ -50,9 +55,9 @@ const VendorsVaultLanding = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-50 to-emerald-50 py-20">
+      <section className="bg-gradient-to-r from-emerald-50 to-teal-50 py-20 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-5xl font-bold text-gray-800 mb-6 leading-tight">
             Revolutionizing Supply Chain Management
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
@@ -62,7 +67,7 @@ const VendorsVaultLanding = () => {
           </p>
           <button
             onClick={handleGetStarted}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:scale-105 hover:shadow-lg text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-200 transform shadow-lg"
           >
             Get Started Today
           </button>
@@ -70,10 +75,10 @@ const VendorsVaultLanding = () => {
       </section>
 
       {/* Who We Serve Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white/80 backdrop-blur-sm relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
               Who We Serve
             </h2>
             <p className="text-xl text-gray-600">
@@ -84,10 +89,10 @@ const VendorsVaultLanding = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Farmers */}
-            <div className="bg-white border-2 border-green-200 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border-2 border-emerald-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-200">
+              <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-green-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -100,7 +105,9 @@ const VendorsVaultLanding = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Farmers</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                Farmers
+              </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
                 Manage crops, track orders, connect with retailers and logistics
                 providers to expand your market reach.
@@ -108,10 +115,10 @@ const VendorsVaultLanding = () => {
             </div>
 
             {/* Retailers */}
-            <div className="bg-white border-2 border-blue-200 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-gradient-to-r from-teal-50 to-emerald-50 border-2 border-teal-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-200">
+              <div className="w-16 h-16 bg-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -124,7 +131,7 @@ const VendorsVaultLanding = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
                 Retailers
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -134,10 +141,10 @@ const VendorsVaultLanding = () => {
             </div>
 
             {/* Logistics */}
-            <div className="bg-white border-2 border-orange-200 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-200">
+              <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-orange-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -150,7 +157,7 @@ const VendorsVaultLanding = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
                 Logistics
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -160,10 +167,10 @@ const VendorsVaultLanding = () => {
             </div>
 
             {/* Warehouse */}
-            <div className="bg-white border-2 border-purple-200 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-200">
+              <div className="w-16 h-16 bg-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-purple-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -176,7 +183,7 @@ const VendorsVaultLanding = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">
                 Warehouse
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -189,10 +196,10 @@ const VendorsVaultLanding = () => {
       </section>
 
       {/* Why Choose Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-r from-teal-50 to-green-50 relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
               Why Choose Vendor's Vault?
             </h2>
           </div>
@@ -200,9 +207,9 @@ const VendorsVaultLanding = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {/* Real-time Coordination */}
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <svg
-                  className="w-8 h-8 text-green-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -215,7 +222,7 @@ const VendorsVaultLanding = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
                 Real-time Coordination
               </h3>
               <p className="text-gray-600 leading-relaxed">
@@ -226,9 +233,9 @@ const VendorsVaultLanding = () => {
 
             {/* Data-Driven Insights */}
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -241,7 +248,7 @@ const VendorsVaultLanding = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
                 Data-Driven Insights
               </h3>
               <p className="text-gray-600 leading-relaxed">
@@ -252,9 +259,9 @@ const VendorsVaultLanding = () => {
 
             {/* Seamless Collaboration */}
             <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <svg
-                  className="w-8 h-8 text-purple-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -267,7 +274,7 @@ const VendorsVaultLanding = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
                 Seamless Collaboration
               </h3>
               <p className="text-gray-600 leading-relaxed">
@@ -280,10 +287,10 @@ const VendorsVaultLanding = () => {
       </section>
 
       {/* Footer CTA Section */}
-      <footer className="bg-gray-900 py-16">
+      <footer className="bg-gray-800 py-16 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center">
               <svg
                 className="w-5 h-5 text-white"
                 fill="currentColor"
@@ -301,7 +308,7 @@ const VendorsVaultLanding = () => {
           </p>
           <button
             onClick={handleJoinPlatform}
-            className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:scale-105 hover:shadow-lg text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-200 transform shadow-lg"
           >
             Join Our Platform
           </button>

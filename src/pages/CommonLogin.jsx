@@ -30,10 +30,15 @@ const CommonLogin = () => {
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
+        // Get the user document and extract the user ID
+        const userDoc = querySnapshot.docs[0];
+        const userId = userDoc.id; // This gets the document ID
+
         setMessage(`Login successful as ${role}`);
         setTimeout(() => {
           setLoading(false);
-          navigate(`/dashboards/${role}dashboard`);
+          // Navigate to dashboard/<role>/<userid>
+          navigate(`/dashboard/${role}/${userId}`);
         }, 1000);
       } else {
         setMessage("Invalid credentials or role.");

@@ -96,98 +96,117 @@ const WDashboard = () => {
   }, [warehouseId]);
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-white">Warehouse Dashboard</h2>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-6">
+      <div className="max-w-6xl mx-auto space-y-6">
+        <h2 className="text-3xl font-bold text-gray-800">
+          Warehouse Dashboard
+        </h2>
 
-      {/* Warehouse Info */}
-      <div className="bg-gray-800 p-6 rounded-lg text-white space-y-2">
-        <p>
-          <strong>Warehouse Name:</strong>{" "}
-          {warehouseInfo.warehouseName || "N/A"}
-        </p>
-        <p>
-          <strong>Email:</strong> {warehouseInfo.email || "N/A"}
-        </p>
-        <p>
-          <strong>Phone:</strong> {warehouseInfo.phone || "N/A"}
-        </p>
-        <p>
-          <strong>Address:</strong> {warehouseInfo.address || "N/A"}
-        </p>
-        <p>
-          <strong>Location:</strong> {warehouseInfo.location || "N/A"}
-        </p>
-        <p>
-          <strong>Goods Type:</strong> {warehouseInfo.goodsType || "N/A"}
-        </p>
-        <p>
-          <strong>Base Capacity (tons):</strong> {warehouseInfo.capacity || "0"}
-        </p>
-        <p>
-          <strong>Years Operating:</strong>{" "}
-          {warehouseInfo.yearsOperating || "N/A"}
-        </p>
-        <p>
-          <strong>Registered On:</strong>{" "}
-          {warehouseInfo.createdAt?.toDate
-            ? warehouseInfo.createdAt.toDate().toLocaleString()
-            : "N/A"}
-        </p>
-      </div>
-
-      {/* Request Stats */}
-      <div className="flex flex-wrap gap-6">
-        <div className="p-4 bg-blue-600 text-white rounded-lg shadow w-48 text-center">
-          <p className="text-lg">Total Requests</p>
-          <p className="text-2xl font-semibold">{requests.length}</p>
-        </div>
-        <div className="p-4 bg-yellow-600 text-white rounded-lg shadow w-48 text-center">
-          <p className="text-lg">Pending Requests</p>
-          <p className="text-2xl font-semibold">{pendingCount}</p>
-        </div>
-        <div className="p-4 bg-green-600 text-white rounded-lg shadow w-48 text-center">
-          <p className="text-lg">Total Capacity</p>
-          <p className="text-2xl font-semibold">
-            {(parseFloat(warehouseInfo.capacity) || 0) + totalStorage}
+        {/* Warehouse Info */}
+        <div className="bg-white/80 backdrop-blur-sm border border-emerald-100 rounded-2xl shadow-2xl p-6 text-gray-800 space-y-3">
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">Warehouse Name:</span>{" "}
+            {warehouseInfo.warehouseName || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">Email:</span>{" "}
+            {warehouseInfo.email || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">Phone:</span>{" "}
+            {warehouseInfo.phone || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">Address:</span>{" "}
+            {warehouseInfo.address || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">Location:</span>{" "}
+            {warehouseInfo.location || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">Goods Type:</span>{" "}
+            {warehouseInfo.goodsType || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">
+              Base Capacity (tons):
+            </span>{" "}
+            {warehouseInfo.capacity || "0"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">
+              Years Operating:
+            </span>{" "}
+            {warehouseInfo.yearsOperating || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold text-gray-800">Registered On:</span>{" "}
+            {warehouseInfo.createdAt?.toDate
+              ? warehouseInfo.createdAt.toDate().toLocaleString()
+              : "N/A"}
           </p>
         </div>
+
+        {/* Request Stats */}
+        <div className="flex flex-wrap gap-6">
+          <div className="p-6 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl shadow-lg w-48 text-center hover:scale-105 transition-all duration-200 transform">
+            <p className="text-lg font-semibold">Total Requests</p>
+            <p className="text-3xl font-bold">{requests.length}</p>
+          </div>
+          <div className="p-6 bg-gradient-to-r from-teal-500 to-emerald-600 text-white rounded-xl shadow-lg w-48 text-center hover:scale-105 transition-all duration-200 transform">
+            <p className="text-lg font-semibold">Pending Requests</p>
+            <p className="text-3xl font-bold">{pendingCount}</p>
+          </div>
+          <div className="p-6 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg w-48 text-center hover:scale-105 transition-all duration-200 transform">
+            <p className="text-lg font-semibold">Total Capacity</p>
+            <p className="text-3xl font-bold">
+              {(parseFloat(warehouseInfo.capacity) || 0) + totalStorage}
+            </p>
+          </div>
+        </div>
+
+        {/* Storage Chart */}
+        <div className="bg-white/80 backdrop-blur-sm border border-emerald-100 rounded-2xl shadow-2xl p-6">
+          <h3 className="text-xl font-semibold mb-6 text-gray-800">
+            Storage Capacity by Type
+          </h3>
+          {storageChartData.length ? (
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart
+                data={storageChartData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis
+                  label={{
+                    value: "Capacity (tons)",
+                    angle: -90,
+                    position: "insideLeft",
+                  }}
+                />
+                <Tooltip />
+                <Bar dataKey="capacity" name="Capacity">
+                  {storageChartData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-gray-600">No storage data to display.</p>
+          )}
+        </div>
       </div>
 
-      {/* Storage Chart */}
-      <div>
-        <h3 className="text-xl font-semibold mb-4 text-white">
-          Storage Capacity by Type
-        </h3>
-        {storageChartData.length ? (
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart
-              data={storageChartData}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis
-                label={{
-                  value: "Capacity (tons)",
-                  angle: -90,
-                  position: "insideLeft",
-                }}
-              />
-              <Tooltip />
-              <Bar dataKey="capacity" name="Capacity">
-                {storageChartData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        ) : (
-          <p className="text-gray-400">No storage data to display.</p>
-        )}
-      </div>
+      {/* Decorative Background Elements */}
+      <div className="fixed top-0 right-0 w-96 h-96 bg-emerald-200 opacity-20 blur-3xl rounded-full transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+      <div className="fixed bottom-0 left-0 w-96 h-96 bg-teal-200 opacity-20 blur-3xl rounded-full transform -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+      <div className="fixed top-1/2 left-1/2 w-96 h-96 bg-green-200 opacity-10 blur-3xl rounded-full transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
     </div>
   );
 };

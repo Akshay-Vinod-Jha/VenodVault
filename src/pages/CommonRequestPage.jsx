@@ -276,15 +276,17 @@ const CommonRequestPage = () => {
 
   return (
     <>
-      <div className="flex h-full w-full text-white">
+      <div className="flex h-full w-full text-gray-800 bg-gradient-to-br from-emerald-50 to-teal-100">
         {/* Sidebar */}
-        <div className="w-1/5 bg-gray-800 p-4 space-y-4 overflow-y-auto">
-          <h2 className="text-xl font-bold">Select Role</h2>
+        <div className="w-1/5 bg-gradient-to-b from-emerald-100 to-teal-100 p-4 space-y-4 overflow-y-auto border-r border-emerald-200">
+          <h2 className="text-xl font-bold text-gray-800">Select Role</h2>
           {roles.map((r) => (
             <button
               key={r}
-              className={`w-full px-4 py-2 text-left rounded hover:bg-blue-700 ${
-                selectedRole === r ? "bg-blue-600" : "bg-gray-700"
+              className={`w-full px-4 py-2 text-left rounded-xl transition-all duration-200 font-semibold ${
+                selectedRole === r
+                  ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg"
+                  : "bg-white/80 text-gray-700 hover:bg-gradient-to-r hover:from-emerald-400 hover:to-teal-500 hover:text-white border border-emerald-100"
               }`}
               onClick={() => setSelectedRole(r)}
             >
@@ -294,19 +296,21 @@ const CommonRequestPage = () => {
         </div>
 
         {/* Users */}
-        <div className="w-2/5 p-4 bg-gray-900 space-y-2 overflow-y-auto">
-          <h2 className="text-xl font-bold mb-2">
+        <div className="w-2/5 p-4 bg-gradient-to-b from-teal-50 to-emerald-50 space-y-2 overflow-y-auto border-r border-teal-200">
+          <h2 className="text-xl font-bold mb-2 text-gray-800">
             {selectedRole ? `Select ${selectedRole}` : "Please select a role"}
           </h2>
           {loading ? (
-            <p>Loading...</p>
+            <p className="text-gray-600">Loading...</p>
           ) : (
             users.map((u) => (
               <button
                 key={u.id}
-                className={`block w-full text-left p-3 rounded ${
-                  selectedUserId === u.id ? "bg-green-600" : "bg-gray-700"
-                } hover:bg-green-700`}
+                className={`block w-full text-left p-3 rounded-xl transition-all duration-200 ${
+                  selectedUserId === u.id
+                    ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg"
+                    : "bg-white/80 text-gray-700 hover:bg-gradient-to-r hover:from-green-400 hover:to-emerald-500 hover:text-white border border-green-100"
+                } hover:scale-105 hover:shadow-lg`}
                 onClick={() => setSelectedUserId(u.id)}
               >
                 {renderUserDetails(u)}
@@ -316,20 +320,24 @@ const CommonRequestPage = () => {
         </div>
 
         {/* Products */}
-        <div className="w-2/5 p-4 bg-gray-800 overflow-y-auto">
-          <h2 className="text-xl font-bold mb-4">Available Items</h2>
+        <div className="w-2/5 p-4 bg-gradient-to-b from-green-50 to-emerald-50 overflow-y-auto">
+          <h2 className="text-xl font-bold mb-4 text-gray-800">
+            Available Items
+          </h2>
           {products.length === 0 ? (
-            <p>No items found.</p>
+            <p className="text-gray-600">No items found.</p>
           ) : (
             products.map((product) => (
               <div
                 key={product.id}
-                className="bg-gray-700 rounded p-4 mb-3 space-y-2"
+                className="bg-white/80 backdrop-blur-sm rounded-xl p-4 mb-3 space-y-2 border border-green-100 shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                {renderProductDetails(product)}
+                <div className="text-gray-700">
+                  {renderProductDetails(product)}
+                </div>
                 <button
                   onClick={() => handleOpenModal(product)}
-                  className="mt-2 px-4 py-1 bg-blue-600 hover:bg-blue-700 rounded"
+                  className="mt-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg"
                 >
                   Make Request
                 </button>
@@ -342,33 +350,35 @@ const CommonRequestPage = () => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white text-black p-6 rounded shadow-xl w-96">
-            <h2 className="text-xl font-bold mb-4">Request Product</h2>
-            <div className="space-y-2 text-sm mb-4">
+          <div className="bg-white/95 backdrop-blur-sm text-gray-800 p-6 rounded-2xl shadow-2xl w-96 border border-emerald-100">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">
+              Request Product
+            </h2>
+            <div className="space-y-2 text-sm mb-4 text-gray-700">
               {selectedProduct && renderProductDetails(selectedProduct)}
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-semibold mb-1 text-gray-700">
                 Quantity to Request:
               </label>
               <input
                 type="number"
                 value={requestedQuantity}
                 onChange={(e) => setRequestedQuantity(e.target.value)}
-                className="w-full border border-gray-400 px-3 py-1 rounded"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 transition-all duration-200 bg-white text-gray-800 placeholder-gray-400"
                 placeholder="Enter quantity"
               />
             </div>
             <div className="flex justify-end space-x-3">
               <button
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2 bg-gray-400 hover:bg-gray-500 rounded text-white"
+                className="px-4 py-2 bg-gray-400 hover:bg-gray-500 rounded-xl text-white font-semibold transition-all duration-200"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSendRequest}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+                className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 rounded-xl text-white font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg"
               >
                 Send Request
               </button>

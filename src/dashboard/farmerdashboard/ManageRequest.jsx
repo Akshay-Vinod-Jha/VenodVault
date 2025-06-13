@@ -169,71 +169,73 @@ const ManageRequest = () => {
   const renderRequestCard = (req, showActions = false) => (
     <div
       key={req.docId}
-      className={`p-5 rounded-lg shadow-md ${
+      className={`p-6 rounded-xl shadow-lg backdrop-blur-sm border-2 transition-all duration-200 ${
         req.status === "approved"
-          ? "bg-green-800"
+          ? "bg-green-50/80 border-green-200"
           : req.status === "rejected"
-          ? "bg-red-800"
-          : "bg-gray-800"
+          ? "bg-red-50/80 border-red-200"
+          : "bg-white/80 border-emerald-100"
       }`}
     >
       {/* Document ID */}
-      <p className="text-sm text-pink-400 font-mono break-all">
+      <p className="text-sm text-emerald-600 font-mono break-all font-semibold">
         Document ID: {req.docId}
       </p>
 
-      <hr className="my-3 border-gray-600" />
+      <hr className="my-4 border-emerald-100" />
 
       {/* Info */}
-      <div className="space-y-1">
-        <h1 className="text-xl font-bold text-yellow-300">
-          Request Information
-        </h1>
-        <p>
-          <strong>Product ID:</strong> {req.id}
-        </p>
-        <p>
-          <strong>Requested Quantity:</strong> {req.requestedQuantity}
-        </p>
-        <p>
-          <strong>Requested By Role:</strong> {req.requestedByRole || "N/A"}
-        </p>
-        <p>
-          <strong>Requested By ID:</strong>{" "}
-          <span className="break-all">{req.requestedById}</span>
-        </p>
-        <p>
-          <strong>Status:</strong>{" "}
-          <span
-            className={`font-bold ${
-              req.status === "pending"
-                ? "text-yellow-400"
-                : req.status === "approved"
-                ? "text-green-400"
-                : "text-red-400"
-            }`}
-          >
-            {req.status}
-          </span>
-        </p>
-        <p>
-          <strong>Timestamp:</strong>{" "}
-          {req.timestamp?.seconds
-            ? new Date(req.timestamp.seconds * 1000).toLocaleString()
-            : "N/A"}
-        </p>
+      <div className="space-y-3">
+        <h1 className="text-xl font-bold text-gray-800">Request Information</h1>
+        <div className="space-y-2">
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Product ID:</strong> {req.id}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Requested Quantity:</strong>{" "}
+            {req.requestedQuantity}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Requested By Role:</strong>{" "}
+            {req.requestedByRole || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Requested By ID:</strong>{" "}
+            <span className="break-all">{req.requestedById}</span>
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Status:</strong>{" "}
+            <span
+              className={`font-bold ${
+                req.status === "pending"
+                  ? "text-emerald-600"
+                  : req.status === "approved"
+                  ? "text-green-600"
+                  : "text-red-600"
+              }`}
+            >
+              {req.status}
+            </span>
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Timestamp:</strong>{" "}
+            {req.timestamp?.seconds
+              ? new Date(req.timestamp.seconds * 1000).toLocaleString()
+              : "N/A"}
+          </p>
+        </div>
       </div>
 
       {/* Action Buttons */}
       {showActions && req.status === "pending" && (
-        <div className="flex gap-3 justify-end mt-4">
+        <div className="flex gap-3 justify-end mt-6">
           <button
             onClick={() => handleAccept(req)}
             disabled={processingRequest === req.docId}
-            className={`px-4 py-2 rounded-md text-white ${
+            className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-200 transform ${
               processingRequest === req.docId
-                ? "bg-gray-600 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-700"
+                ? "bg-gray-400 cursor-not-allowed scale-95"
+                : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 hover:scale-105 hover:shadow-lg"
             }`}
           >
             {processingRequest === req.docId ? "Processing..." : "Accept"}
@@ -241,10 +243,10 @@ const ManageRequest = () => {
           <button
             onClick={() => handleReject(req)}
             disabled={processingRequest === req.docId}
-            className={`px-4 py-2 rounded-md text-white ${
+            className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-200 transform ${
               processingRequest === req.docId
-                ? "bg-gray-600 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-700"
+                ? "bg-gray-400 cursor-not-allowed scale-95"
+                : "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 hover:scale-105 hover:shadow-lg"
             }`}
           >
             {processingRequest === req.docId ? "Processing..." : "Reject"}
@@ -282,51 +284,64 @@ const ManageRequest = () => {
 
   if (loading) {
     return (
-      <div className="p-6 text-white min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="p-8 min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">Loading requests...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-emerald-200 border-t-emerald-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">Loading requests...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 text-white min-h-screen bg-gray-900">
-      <h2 className="text-2xl font-bold mb-6">Manage Requests</h2>
-
-      {/* Tabs */}
-      <div className="flex space-x-1 mb-6 bg-gray-800 p-1 rounded-lg">
-        {["pending", "accepted", "declined"].map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`flex-1 py-2 px-4 rounded-md font-medium capitalize transition-colors ${
-              activeTab === tab
-                ? "bg-blue-600 text-white"
-                : "text-gray-400 hover:text-white hover:bg-gray-700"
-            }`}
-          >
-            {tab} ({getTabCount(tab)})
-          </button>
-        ))}
+    <div className="p-8 min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100">
+      {/* Decorative background blobs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 right-10 w-72 h-72 bg-emerald-200 opacity-20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-teal-200 opacity-20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-green-200 opacity-10 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Content */}
-      <div className="space-y-4">
-        {getTabData().length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-400 text-lg">
-              No {activeTab} requests found.
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {getTabData().map((req) =>
-              renderRequestCard(req, activeTab === "pending")
-            )}
-          </div>
-        )}
+      <div className="relative max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-800 mb-8">
+          Manage Requests
+        </h2>
+
+        {/* Tabs */}
+        <div className="flex space-x-1 mb-8 bg-white/80 backdrop-blur-sm p-2 rounded-xl shadow-lg border border-emerald-100">
+          {["pending", "accepted", "declined"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`flex-1 py-3 px-4 rounded-xl font-semibold capitalize transition-all duration-200 ${
+                activeTab === tab
+                  ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md transform scale-105"
+                  : "text-gray-600 hover:text-gray-800 hover:bg-emerald-50"
+              }`}
+            >
+              {tab} ({getTabCount(tab)})
+            </button>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="space-y-6">
+          {getTabData().length === 0 ? (
+            <div className="text-center py-16">
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 border border-emerald-100 shadow-lg">
+                <p className="text-gray-600 text-lg">
+                  No {activeTab} requests found.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {getTabData().map((req) =>
+                renderRequestCard(req, activeTab === "pending")
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -14,16 +14,16 @@ import {
 } from "recharts";
 
 const COLORS = [
-  "#FF6B6B",
-  "#6BCB77",
-  "#4D96FF",
-  "#FFD93D",
-  "#FF9F1C",
-  "#9D4EDD",
-  "#00C49F",
-  "#E36414",
-  "#F72585",
-  "#06D6A0",
+  "#10B981",
+  "#0D9488",
+  "#059669",
+  "#065F46",
+  "#047857",
+  "#6EE7B7",
+  "#34D399",
+  "#A7F3D0",
+  "#6366F1",
+  "#8B5CF6",
 ];
 
 const LDashboard = () => {
@@ -78,98 +78,138 @@ const LDashboard = () => {
   }));
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-white">Logistic Dashboard</h2>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-8">
+      <div className="max-w-6xl mx-auto space-y-6">
+        <h2 className="text-3xl font-bold text-gray-800">Logistic Dashboard</h2>
 
-      {/* Logistic Info */}
-      <div className="bg-gray-800 p-6 rounded-lg text-white space-y-2">
-        <p>
-          <strong>Full Name:</strong> {logisticInfo.fullName || "N/A"}
-        </p>
-        <p>
-          <strong>Email:</strong> {logisticInfo.email || "N/A"}
-        </p>
-        <p>
-          <strong>Phone:</strong> {logisticInfo.phone || "N/A"}
-        </p>
-        <p>
-          <strong>Company:</strong> {logisticInfo.companyName || "N/A"}
-        </p>
-        <p>
-          <strong>Address:</strong> {logisticInfo.address || "N/A"}
-        </p>
-        <p>
-          <strong>Vehicle Type:</strong> {logisticInfo.vehicleType || "N/A"}
-        </p>
-        <p>
-          <strong>Vehicle Capacity:</strong>{" "}
-          {logisticInfo.vehicleCapacity || "N/A"}
-        </p>
-        <p>
-          <strong>Years of Experience:</strong>{" "}
-          {logisticInfo.yearsExperience || "N/A"}
-        </p>
-        <p>
-          <strong>Service Areas:</strong> {logisticInfo.serviceAreas || "N/A"}
-        </p>
-        <p>
-          <strong>Registered On:</strong>{" "}
-          {logisticInfo.createdAt?.toDate
-            ? logisticInfo.createdAt.toDate().toLocaleString()
-            : "N/A"}
-        </p>
-      </div>
+        {/* Logistic Info */}
+        <div className="bg-white/80 backdrop-blur-sm border border-emerald-100 p-6 rounded-2xl shadow-2xl text-gray-800 space-y-2">
+          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 rounded-xl border border-emerald-100 mb-4">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              Company Information
+            </h3>
+          </div>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Full Name:</strong>{" "}
+            {logisticInfo.fullName || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Email:</strong>{" "}
+            {logisticInfo.email || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Phone:</strong>{" "}
+            {logisticInfo.phone || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Company:</strong>{" "}
+            {logisticInfo.companyName || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Address:</strong>{" "}
+            {logisticInfo.address || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Vehicle Type:</strong>{" "}
+            {logisticInfo.vehicleType || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Vehicle Capacity:</strong>{" "}
+            {logisticInfo.vehicleCapacity || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Years of Experience:</strong>{" "}
+            {logisticInfo.yearsExperience || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Service Areas:</strong>{" "}
+            {logisticInfo.serviceAreas || "N/A"}
+          </p>
+          <p className="text-gray-700">
+            <strong className="text-gray-800">Registered On:</strong>{" "}
+            {logisticInfo.createdAt?.toDate
+              ? logisticInfo.createdAt.toDate().toLocaleString()
+              : "N/A"}
+          </p>
+        </div>
 
-      {/* Counts */}
-      <div className="flex flex-wrap gap-6">
-        <div className="p-4 bg-blue-600 text-white rounded-lg shadow w-48 text-center">
-          <p className="text-lg">Total Vehicles</p>
-          <p className="text-2xl font-semibold">{fleet.length}</p>
+        {/* Counts */}
+        <div className="flex flex-wrap gap-6">
+          <div className="p-6 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl shadow-2xl w-48 text-center hover:scale-105 transition-transform duration-200">
+            <p className="text-lg font-semibold">Total Vehicles</p>
+            <p className="text-3xl font-bold">{fleet.length}</p>
+          </div>
+          <div className="p-6 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl shadow-2xl w-48 text-center hover:scale-105 transition-transform duration-200">
+            <p className="text-lg font-semibold">Total Requests</p>
+            <p className="text-3xl font-bold">{requests.length}</p>
+          </div>
+          <div className="p-6 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-2xl shadow-2xl w-48 text-center hover:scale-105 transition-transform duration-200">
+            <p className="text-lg font-semibold">Pending Deliveries</p>
+            <p className="text-3xl font-bold">{pendingCount}</p>
+          </div>
         </div>
-        <div className="p-4 bg-green-600 text-white rounded-lg shadow w-48 text-center">
-          <p className="text-lg">Total Requests</p>
-          <p className="text-2xl font-semibold">{requests.length}</p>
-        </div>
-        <div className="p-4 bg-yellow-600 text-white rounded-lg shadow w-48 text-center">
-          <p className="text-lg">Pending Deliveries</p>
-          <p className="text-2xl font-semibold">{pendingCount}</p>
-        </div>
-      </div>
 
-      {/* Chart */}
-      <div>
-        <h3 className="text-xl font-semibold mb-4 text-white">
-          Total Capacity per Vehicle Type
-        </h3>
-        {chartData.length ? (
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart
-              data={chartData}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="type" />
-              <YAxis
-                label={{
-                  value: "Total Capacity",
-                  angle: -90,
-                  position: "insideLeft",
-                }}
-              />
-              <Tooltip />
-              <Bar dataKey="totalCapacity" name="Total Capacity">
-                {chartData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        ) : (
-          <p className="text-gray-400">No vehicle capacity data to display.</p>
-        )}
+        {/* Chart */}
+        <div className="bg-white/80 backdrop-blur-sm border border-teal-100 p-6 rounded-2xl shadow-2xl">
+          <div className="bg-gradient-to-r from-teal-50 to-emerald-50 p-4 rounded-xl border border-teal-100 mb-4">
+            <h3 className="text-xl font-semibold text-gray-800">
+              Total Capacity per Vehicle Type
+            </h3>
+          </div>
+          {chartData.length ? (
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart
+                data={chartData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#D1FAE5" />
+                <XAxis dataKey="type" tick={{ fill: "#374151" }} />
+                <YAxis
+                  label={{
+                    value: "Total Capacity",
+                    angle: -90,
+                    position: "insideLeft",
+                    style: { textAnchor: "middle", fill: "#374151" },
+                  }}
+                  tick={{ fill: "#374151" }}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    border: "1px solid #A7F3D0",
+                    borderRadius: "12px",
+                    backdropFilter: "blur(4px)",
+                  }}
+                />
+                <Bar
+                  dataKey="totalCapacity"
+                  name="Total Capacity"
+                  radius={[4, 4, 0, 0]}
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-600">
+                No vehicle capacity data to display.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Decorative Background Elements */}
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-200 opacity-20 blur-3xl rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-200 opacity-20 blur-3xl rounded-full transform -translate-x-1/2 translate-y-1/2"></div>
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-green-200 opacity-10 blur-3xl rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
       </div>
     </div>
   );

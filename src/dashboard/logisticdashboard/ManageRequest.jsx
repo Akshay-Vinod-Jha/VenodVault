@@ -276,88 +276,107 @@ const LManageRequest = () => {
       return (
         <div
           key={req.docId}
-          className={`p-5 rounded-lg shadow-md transition-colors ${
+          className={`p-6 rounded-2xl shadow-2xl transition-all duration-200 hover:scale-[1.02] ${
             req.status === "approved"
-              ? "bg-green-800"
+              ? "bg-white/80 backdrop-blur-sm border border-green-200"
               : req.status === "rejected"
-              ? "bg-red-800"
-              : "bg-gray-800"
+              ? "bg-white/80 backdrop-blur-sm border border-red-200"
+              : "bg-white/80 backdrop-blur-sm border border-emerald-100"
           }`}
         >
-          <p className="text-sm text-pink-400 font-mono break-all">
-            Document ID: {safeValue(req.docId)}
-          </p>
+          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 rounded-xl p-3 mb-4">
+            <p className="text-sm text-emerald-700 font-mono break-all">
+              <strong>Document ID:</strong> {safeValue(req.docId)}
+            </p>
+          </div>
 
-          <hr className="my-3 border-gray-600" />
+          <div className="space-y-3">
+            <div className="bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-100 rounded-xl p-4">
+              <h1 className="text-xl font-bold text-gray-800 mb-3">
+                Request Information
+              </h1>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-700">
+                <p>
+                  <strong className="text-gray-800">Fleet ID:</strong>{" "}
+                  {safeValue(req.id)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Requested Quantity:</strong>{" "}
+                  {safeValue(req.requestedQuantity)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Requested By Role:</strong>{" "}
+                  {safeValue(req.requestedByRole)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Vehicle Number:</strong>{" "}
+                  {safeValue(req.vehicleNumber)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Driver Name:</strong>{" "}
+                  {safeValue(req.driverName)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Fuel Type:</strong>{" "}
+                  {safeValue(req.fuelType)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Type:</strong>{" "}
+                  {safeValue(req.type)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Status:</strong>{" "}
+                  <span
+                    className={`font-bold px-2 py-1 rounded-full text-xs ${
+                      req.status === "pending"
+                        ? "bg-yellow-100 text-yellow-800"
+                        : req.status === "approved"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {safeValue(req.status)}
+                  </span>
+                </p>
+              </div>
+              <div className="mt-3 pt-3 border-t border-teal-200">
+                <p className="text-gray-700 break-all">
+                  <strong className="text-gray-800">Requested By ID:</strong>{" "}
+                  {safeValue(req.requestedById)}
+                </p>
+              </div>
+            </div>
 
-          <div className="space-y-1">
-            <h1 className="text-xl font-bold text-yellow-300">
-              Request Information
-            </h1>
-            <p>
-              <strong>Fleet ID:</strong> {safeValue(req.id)}
-            </p>
-            <p>
-              <strong>Requested Quantity:</strong>{" "}
-              {safeValue(req.requestedQuantity)}
-            </p>
-            <p>
-              <strong>Requested By Role:</strong>{" "}
-              {safeValue(req.requestedByRole)}
-            </p>
-            <p>
-              <strong>Requested By ID:</strong>{" "}
-              <span className="break-all">{safeValue(req.requestedById)}</span>
-            </p>
-            <p>
-              <strong>Vehicle Number:</strong> {safeValue(req.vehicleNumber)}
-            </p>
-            <p>
-              <strong>Driver Name:</strong> {safeValue(req.driverName)}
-            </p>
-            <p>
-              <strong>Fuel Type:</strong> {safeValue(req.fuelType)}
-            </p>
-            <p>
-              <strong>Type:</strong> {safeValue(req.type)}
-            </p>
-            <p>
-              <strong>Status:</strong>{" "}
-              <span
-                className={`font-bold ${
-                  req.status === "pending"
-                    ? "text-yellow-400"
-                    : req.status === "approved"
-                    ? "text-green-400"
-                    : "text-red-400"
-                }`}
-              >
-                {safeValue(req.status)}
-              </span>
-            </p>
-            <p>
-              <strong>Timestamp:</strong> {formatTimestamp(req.timestamp)}
-            </p>
-            <p>
-              <strong>Added At:</strong> {formatTimestamp(req.addedAt)}
-            </p>
-            {req.processedAt && (
-              <p>
-                <strong>Processed At:</strong>{" "}
-                {formatTimestamp(req.processedAt)}
-              </p>
-            )}
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-100 rounded-xl p-4">
+              <h3 className="font-semibold text-gray-800 mb-2">Timestamps</h3>
+              <div className="space-y-1 text-gray-700">
+                <p>
+                  <strong className="text-gray-800">Timestamp:</strong>{" "}
+                  {formatTimestamp(req.timestamp)}
+                </p>
+                <p>
+                  <strong className="text-gray-800">Added At:</strong>{" "}
+                  {formatTimestamp(req.addedAt)}
+                </p>
+                {req.processedAt && (
+                  <p>
+                    <strong className="text-gray-800">Processed At:</strong>{" "}
+                    {formatTimestamp(req.processedAt)}
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
 
           {showActions && req.status === "pending" && (
-            <div className="flex gap-3 justify-end mt-4">
+            <div className="flex gap-3 justify-end mt-6">
               <button
                 onClick={() => handleAccept(req)}
                 disabled={processingRequest === req.docId}
-                className={`px-4 py-2 rounded-md text-white transition-colors ${
+                className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-200 transform ${
                   processingRequest === req.docId
-                    ? "bg-gray-600 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700 focus:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    ? "bg-gray-400 cursor-not-allowed scale-95"
+                    : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-green-100"
                 }`}
               >
                 {processingRequest === req.docId ? "Processing..." : "Accept"}
@@ -365,10 +384,10 @@ const LManageRequest = () => {
               <button
                 onClick={() => handleReject(req)}
                 disabled={processingRequest === req.docId}
-                className={`px-4 py-2 rounded-md text-white transition-colors ${
+                className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-200 transform ${
                   processingRequest === req.docId
-                    ? "bg-gray-600 cursor-not-allowed"
-                    : "bg-red-600 hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    ? "bg-gray-400 cursor-not-allowed scale-95"
+                    : "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-red-100"
                 }`}
               >
                 {processingRequest === req.docId ? "Processing..." : "Reject"}
@@ -412,14 +431,20 @@ const LManageRequest = () => {
 
   if (error) {
     return (
-      <div className="p-6 text-white min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-center max-w-md">
-          <div className="text-red-400 text-6xl mb-4">⚠️</div>
-          <h2 className="text-xl font-bold mb-2 text-red-400">Error</h2>
-          <p className="text-gray-300 mb-4">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-8 flex items-center justify-center">
+        {/* Decorative background elements */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-10 right-10 w-72 h-72 bg-emerald-200 opacity-20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-72 h-72 bg-teal-200 opacity-20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="text-center max-w-md bg-white/80 backdrop-blur-sm border border-red-200 rounded-2xl p-8 shadow-2xl relative z-10">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 className="text-xl font-bold mb-2 text-red-600">Error</h2>
+          <p className="text-gray-700 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+            className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
           >
             Retry
           </button>
@@ -430,29 +455,44 @@ const LManageRequest = () => {
 
   if (loading) {
     return (
-      <div className="p-6 text-white min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">Loading requests...</p>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-8 flex items-center justify-center">
+        {/* Decorative background elements */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-10 right-10 w-72 h-72 bg-emerald-200 opacity-20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-72 h-72 bg-teal-200 opacity-20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="text-center bg-white/80 backdrop-blur-sm border border-emerald-100 rounded-2xl p-8 shadow-2xl relative z-10">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-emerald-200 border-t-emerald-600 mx-auto mb-4"></div>
+          <p className="text-gray-700">Loading requests...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 text-white min-h-screen bg-gray-900">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6">Manage Requests</h2>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 p-8">
+      {/* Decorative background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 right-10 w-72 h-72 bg-emerald-200 opacity-20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-72 h-72 bg-teal-200 opacity-20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-green-200 opacity-10 blur-3xl rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+      </div>
 
-        <div className="flex space-x-1 mb-6 bg-gray-800 p-1 rounded-lg">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <h2 className="text-3xl font-bold mb-8 text-gray-800">
+          Manage Requests
+        </h2>
+
+        <div className="flex space-x-2 mb-8 bg-white/80 backdrop-blur-sm border border-emerald-100 p-2 rounded-2xl shadow-2xl">
           {["pending", "accepted", "declined"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-4 rounded-md font-medium capitalize transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`flex-1 py-3 px-6 rounded-xl font-semibold capitalize transition-all duration-200 focus:outline-none focus:ring-4 ${
                 activeTab === tab
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-400 hover:text-white hover:bg-gray-700"
+                  ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg focus:ring-emerald-100"
+                  : "text-gray-700 hover:text-emerald-700 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 focus:ring-emerald-100"
               }`}
             >
               {tab} ({getTabCount(tab)})
@@ -460,16 +500,16 @@ const LManageRequest = () => {
           ))}
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {getTabData.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-gray-500 text-6xl mb-4">📋</div>
-              <p className="text-gray-400 text-lg">
+            <div className="text-center py-16 bg-white/80 backdrop-blur-sm border border-emerald-100 rounded-2xl shadow-2xl">
+              <div className="text-gray-400 text-6xl mb-4">📋</div>
+              <p className="text-gray-600 text-lg">
                 No {activeTab} requests found.
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-6">
               {getTabData.map((req) =>
                 renderRequestCard(req, activeTab === "pending")
               )}

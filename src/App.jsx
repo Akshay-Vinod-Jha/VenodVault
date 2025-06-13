@@ -24,51 +24,65 @@ import WControlPanel from "./dashboard/warehousedashboard/ControlPanel";
 import WManageRequest from "./dashboard/warehousedashboard/ManageRequest";
 import CommonRequestPage from "./pages/CommonRequestPage";
 import VendorsVaultLanding from "./pages/Index";
+import BotpressChatbot from "./components/Chatbot";
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<VendorsVaultLanding />} />
-        <Route path="/login" element={<CommonLogin />} />
-        <Route path="/signup" element={<EntrySignUp />} />
-        <Route path="/signup/farmer" element={<FarmerSignupForm />} />
-        <Route path="/signup/warehouse" element={<WarehouseSignupForm />} />
-        <Route path="/signup/logistic" element={<LogisticsSignupForm />} />
-        <Route path="/signup/retailer" element={<RetailerSignupForm />} />
-        <Route path="/dashboard/farmer/:farmerId/*" element={<EntryPoint />}>
-          <Route index element={<Dashboard />} />
-          <Route path="control" element={<ControlPanel />} />
-          <Route path="requests" element={<ManageRequest />} />
-          <Route path="make-request" element={<CommonRequestPage />} />
-        </Route>
-        <Route
-          path="/dashboard/retailer/:retailerId/*"
-          element={<REntryPoint />}
-        >
-          <Route index element={<RDashboard />} />
-          <Route path="control" element={<RControlPanel />} />
-          <Route path="requests" element={<RManageRequest />} />
-          <Route path="make-request" element={<CommonRequestPage />} />
-        </Route>
-        <Route
-          path="/dashboard/logistic/:logisticId/*"
-          element={<LEntryPoint />}
-        >
-          <Route index element={<LDashboard />} />
-          <Route path="control" element={<LControlPanel />} />
-          <Route path="requests" element={<LManageRequest />} />
-          <Route path="make-request" element={<CommonRequestPage />} />
-        </Route>
-        <Route
-          path="/dashboard/warehouse/:warehouseId/*"
-          element={<WEntryPoint />}
-        >
-          <Route index element={<WDashboard />} />
-          <Route path="control" element={<WControlPanel />} />
-          <Route path="requests" element={<WManageRequest />} />
-          <Route path="make-request" element={<CommonRequestPage />} />
-        </Route>
-      </Routes>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<VendorsVaultLanding />} />
+          <Route path="/login" element={<CommonLogin />} />
+          <Route path="/signup" element={<EntrySignUp />} />
+          <Route path="/signup/farmer" element={<FarmerSignupForm />} />
+          <Route path="/signup/warehouse" element={<WarehouseSignupForm />} />
+          <Route path="/signup/logistic" element={<LogisticsSignupForm />} />
+          <Route path="/signup/retailer" element={<RetailerSignupForm />} />
+
+          {/* Farmer Dashboard Routes */}
+          <Route path="/dashboard/farmer/:farmerId/*" element={<EntryPoint />}>
+            <Route index element={<Dashboard />} />
+            <Route path="control" element={<ControlPanel />} />
+            <Route path="requests" element={<ManageRequest />} />
+            <Route path="make-request" element={<CommonRequestPage />} />
+          </Route>
+
+          {/* Retailer Dashboard Routes */}
+          <Route
+            path="/dashboard/retailer/:retailerId/*"
+            element={<REntryPoint />}
+          >
+            <Route index element={<RDashboard />} />
+            <Route path="control" element={<RControlPanel />} />
+            <Route path="requests" element={<RManageRequest />} />
+            <Route path="make-request" element={<CommonRequestPage />} />
+          </Route>
+
+          {/* Logistics Dashboard Routes */}
+          <Route
+            path="/dashboard/logistic/:logisticId/*"
+            element={<LEntryPoint />}
+          >
+            <Route index element={<LDashboard />} />
+            <Route path="control" element={<LControlPanel />} />
+            <Route path="requests" element={<LManageRequest />} />
+            <Route path="make-request" element={<CommonRequestPage />} />
+          </Route>
+
+          {/* Warehouse Dashboard Routes */}
+          <Route
+            path="/dashboard/warehouse/:warehouseId/*"
+            element={<WEntryPoint />}
+          >
+            <Route index element={<WDashboard />} />
+            <Route path="control" element={<WControlPanel />} />
+            <Route path="requests" element={<WManageRequest />} />
+            <Route path="make-request" element={<CommonRequestPage />} />
+          </Route>
+        </Routes>
+
+        {/* Botpress Chatbot - Available on all pages */}
+        <BotpressChatbot />
+      </div>
     </Router>
   );
 }

@@ -1,45 +1,140 @@
 import React from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Settings,
+  FileText,
+  Send,
+  Store,
+  User,
+  Menu,
+  ChevronRight,
+} from "lucide-react";
 
 const REntryPoint = () => {
   const { retailerId } = useParams();
+  const location = useLocation();
+
+  // Function to check if current route is active
+  const isActiveRoute = (path) => {
+    return location.pathname === path;
+  };
+
+  const navItems = [
+    {
+      to: `/dashboard/retailer/${retailerId}`,
+      label: "Dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      to: `/dashboard/retailer/${retailerId}/control`,
+      label: "Control Panel",
+      icon: Settings,
+    },
+    {
+      to: `/dashboard/retailer/${retailerId}/requests`,
+      label: "Manage Requests",
+      icon: FileText,
+    },
+    {
+      to: `/dashboard/retailer/${retailerId}/make-request`,
+      label: "Make Requests",
+      icon: Send,
+    },
+  ];
 
   return (
-    <div className="min-h-screen flex text-white">
+    <div className="min-h-screen flex bg-gradient-to-br from-emerald-50 to-teal-100">
+      {/* Decorative background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 right-10 w-72 h-72 bg-emerald-200 opacity-20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-72 h-72 bg-teal-200 opacity-20 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Sidebar */}
-      <div className="w-1/5 bg-gray-800 p-4 space-y-6">
-        <h2 className="text-xl font-bold">Retailer Panel</h2>
-        <nav className="flex flex-col gap-3">
-          <Link
-            to={`/dashboard/retailer/${retailerId}`}
-            className="hover:underline"
-          >
-            Dashboard
-          </Link>
-          <Link
-            to={`/dashboard/retailer/${retailerId}/control`}
-            className="hover:underline"
-          >
-            Control Panel
-          </Link>
-          <Link
-            to={`/dashboard/retailer/${retailerId}/requests`}
-            className="hover:underline"
-          >
-            Manage Requests
-          </Link>
-          <Link
-            to={`/dashboard/retailer/${retailerId}/make-request`}
-            className="hover:underline"
-          >
-            Make Requests
-          </Link>
-        </nav>
+      <div className="w-1/5 min-w-64 bg-white/80 backdrop-blur-sm border-r border-emerald-100 shadow-2xl relative z-10">
+        <div className="p-6 space-y-6">
+          {/* Header */}
+          <div className="flex items-center space-x-3 pb-4 border-b border-emerald-100">
+            <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
+              <Store className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-800">
+                Retailer Panel
+              </h2>
+              <p className="text-sm text-gray-600">Management System</p>
+            </div>
+          </div>
+
+          {/* User Info */}
+          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 rounded-xl p-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">Retailer</p>
+                <p className="text-xs text-gray-600">ID: {retailerId}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <nav className="space-y-2">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 pb-2">
+              Navigation
+            </p>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = isActiveRoute(item.to);
+
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${
+                    isActive
+                      ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg"
+                      : "text-gray-700 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 hover:text-emerald-700"
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <Icon
+                      className={`w-5 h-5 ${
+                        isActive
+                          ? "text-white"
+                          : "text-gray-500 group-hover:text-emerald-600"
+                      }`}
+                    />
+                    <span className="font-medium">{item.label}</span>
+                  </div>
+                  {isActive && <ChevronRight className="w-4 h-4 text-white" />}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Additional Info */}
+          <div className="mt-8 pt-6 border-t border-emerald-100">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-100 rounded-xl p-4">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <p className="text-sm font-semibold text-gray-800">
+                  System Status
+                </p>
+              </div>
+              <p className="text-xs text-gray-600">All systems operational</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Dynamic Content */}
-      <div className="w-4/5 p-6 bg-gray-900">
-        <Outlet />
+      <div className="flex-1 relative z-10">
+        <div className="h-full overflow-auto">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
