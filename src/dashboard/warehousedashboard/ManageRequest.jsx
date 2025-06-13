@@ -155,6 +155,10 @@ const WManageRequest = () => {
           return;
         }
 
+        // Calculate cost to pay
+        const pricePerDay = parseFloat(request.pricePerDay) || 0;
+        const costToPay = pricePerDay * requestedQty;
+
         batch.update(requestRef, {
           status: "approved",
           processedAt: new Date(),
@@ -174,8 +178,34 @@ const WManageRequest = () => {
           lastUpdated: new Date(),
         });
 
+        // Add payment document to RemainingPayments collection
+        const paymentRef = doc(
+          db,
+          `${request.requestedByRole}/${request.requestedById}/RemainingPayments`,
+          request.docId // Using the same docId for consistency
+        );
+
+        const paymentData = {
+          requestId: request.docId,
+          storageId: request.id,
+          storageName: request.storageName,
+          location: request.location,
+          type: request.type,
+          pricePerDay: request.pricePerDay,
+          requestedQuantity: request.requestedQuantity,
+          costToPay: costToPay,
+          warehouseId: warehouseId,
+          paymentStatus: "pending",
+          createdAt: new Date(),
+          dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+          requestedBy: request.requestedById,
+          requestedByRole: request.requestedByRole,
+        };
+
+        batch.set(paymentRef, paymentData);
+
         await batch.commit();
-        console.log("Request accepted successfully");
+        console.log("Request accepted successfully and payment record created");
       } catch (err) {
         console.error("Error accepting request:", err);
         alert(`Failed to accept request: ${err.message || "Unknown error"}`);
@@ -245,6 +275,11 @@ const WManageRequest = () => {
         return String(value);
       };
 
+      // Calculate cost to pay for display
+      const pricePerDay = parseFloat(req.pricePerDay) || 0;
+      const requestedQty = parseInt(req.requestedQuantity) || 0;
+      const costToPay = pricePerDay * requestedQty;
+
       return (
         <div
           key={req.docId}
@@ -288,6 +323,12 @@ const WManageRequest = () => {
             <p className="text-gray-700">
               <strong className="text-gray-800">Requested Quantity:</strong>{" "}
               {safeValue(req.requestedQuantity)}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-800">Total Cost:</strong>{" "}
+              <span className="text-emerald-600 font-semibold">
+                ₹{costToPay.toFixed(2)}
+              </span>
             </p>
             <p className="text-gray-700">
               <strong className="text-gray-800">Requested By:</strong>{" "}

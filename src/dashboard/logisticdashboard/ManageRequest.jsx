@@ -153,6 +153,13 @@ const LManageRequest = () => {
       );
       const fleetRef = doc(db, `logistic/${logisticId}/fleets`, request.id);
 
+      // Reference for the new RemainingPayments document
+      const remainingPaymentsRef = doc(
+        db,
+        `${request.requestedByRole}/${request.requestedById}/RemainingPayments`,
+        request.docId
+      );
+
       setProcessingRequest(request.docId);
 
       try {
@@ -180,6 +187,9 @@ const LManageRequest = () => {
           return;
         }
 
+        // Calculate cost to pay
+        const costToPay = 1000 * requestedQuantity;
+
         // Use batch operations for consistency
         batch.update(requestRef, {
           status: "approved",
@@ -200,8 +210,29 @@ const LManageRequest = () => {
           lastUpdated: new Date(),
         });
 
+        // Add new document to RemainingPayments collection
+        const remainingPaymentData = {
+          requestId: request.docId,
+          fleetId: request.id,
+          requestedQuantity: requestedQuantity,
+          costToPay: costToPay,
+          vehicleNumber: request.vehicleNumber,
+          driverName: request.driverName,
+          fuelType: request.fuelType,
+          type: request.type,
+          requestedByRole: request.requestedByRole,
+          requestedById: request.requestedById,
+          logisticId: logisticId,
+          paymentStatus: "pending",
+          createdAt: new Date(),
+          originalTimestamp: request.timestamp,
+          originalAddedAt: request.addedAt,
+        };
+
+        batch.set(remainingPaymentsRef, remainingPaymentData);
+
         await batch.commit();
-        console.log("Request accepted successfully");
+        console.log("Request accepted successfully and payment record created");
       } catch (err) {
         console.error("Error accepting request:", err);
         alert(`Failed to accept request: ${err.message || "Unknown error"}`);

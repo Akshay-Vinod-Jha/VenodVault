@@ -155,11 +155,17 @@ const RManageRequest = () => {
           return;
         }
 
+        // Calculate cost to pay
+        const sellingPrice = parseFloat(request.sellingPrice) || 0;
+        const costToPay = sellingPrice * requestedQty;
+
+        // Update request status
         batch.update(requestRef, {
           status: "approved",
           processedAt: new Date(),
         });
 
+        // Add to accepted requests
         const updatedData = {
           ...request,
           status: "approved",
@@ -168,14 +174,53 @@ const RManageRequest = () => {
         delete updatedData.docId;
         batch.set(acceptedRef, updatedData);
 
+        // Update product quantity
         const newQty = currentQty - requestedQty;
         batch.update(productRef, {
           quantity: newQty.toString(),
           lastUpdated: new Date(),
         });
 
+        // Add to RemainingPayments collection
+        const paymentRef = doc(
+          db,
+          `${request.requestedByRole}/${request.requestedById}/RemainingPayments`,
+          request.docId // Using the same docId for consistency
+        );
+
+        const paymentData = {
+          // Product information
+          productId: request.id,
+          productName: request.name,
+          brand: request.brand,
+          sellingPrice: sellingPrice,
+          requestedQuantity: requestedQty,
+          expiryDate: request.expiryDate,
+
+          // Payment calculation
+          costToPay: costToPay,
+
+          // Request details
+          requestedBy: request.requestedById,
+          requestedByRole: request.requestedByRole,
+          retailerId: retailerId,
+
+          // Timestamps
+          requestCreatedAt: request.addedAt || request.timestamp,
+          approvedAt: new Date(),
+          createdAt: new Date(),
+
+          // Payment status
+          paymentStatus: "pending",
+
+          // Original request reference
+          originalRequestId: request.docId,
+        };
+
+        batch.set(paymentRef, paymentData);
+
         await batch.commit();
-        console.log("Request accepted successfully");
+        console.log("Request accepted successfully and payment record created");
       } catch (err) {
         console.error("Error accepting request:", err);
         alert(`Failed to accept request: ${err.message || "Unknown error"}`);

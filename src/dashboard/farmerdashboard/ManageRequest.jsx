@@ -88,6 +88,11 @@ const ManageRequest = () => {
       `farmer/${farmerId}/availableproducts`,
       request.id
     );
+    const paymentRef = doc(
+      db,
+      `${request.requestedByRole}/${request.requestedById}/RemainingPayments`,
+      request.docId
+    );
 
     setProcessingRequest(request.docId);
 
@@ -103,6 +108,7 @@ const ManageRequest = () => {
       const productData = productDoc.data();
       const currentQuantity = parseInt(productData.quantity) || 0;
       const requestedQuantity = parseInt(request.requestedQuantity) || 0;
+      const sellingPrice = parseFloat(productData.sellingPrice) || 0;
 
       // Check if enough quantity available
       if (currentQuantity < requestedQuantity) {
@@ -111,6 +117,9 @@ const ManageRequest = () => {
         );
         return;
       }
+
+      // Calculate cost to pay
+      const costToPay = sellingPrice * requestedQuantity;
 
       // 2. Update status in original request
       await updateDoc(requestRef, { status: "approved" });
@@ -126,10 +135,31 @@ const ManageRequest = () => {
         quantity: newQuantity.toString(),
       });
 
+      // 5. Create payment document in requester's RemainingPayments collection
+      const paymentData = {
+        productId: request.id,
+        productName: productData.productName || "N/A",
+        farmerId: farmerId,
+        farmerName: productData.farmerName || "N/A",
+        requestedQuantity: requestedQuantity,
+        sellingPrice: sellingPrice,
+        costToPay: costToPay,
+        requestDocId: request.docId,
+        status: "pending",
+        paymentStatus: "unpaid",
+        createdAt: new Date(),
+        requestedByRole: request.requestedByRole,
+        requestedById: request.requestedById,
+        timestamp: request.timestamp,
+      };
+
+      await setDoc(paymentRef, paymentData);
+
       console.log("Request accepted successfully");
       console.log(
         `Product quantity updated: ${currentQuantity} -> ${newQuantity}`
       );
+      console.log(`Payment document created with cost: ${costToPay}`);
     } catch (err) {
       console.error("Error accepting request:", err);
       alert("Failed to accept request. Please try again.");
